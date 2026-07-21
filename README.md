@@ -1,7 +1,7 @@
 # Decoder Based RAM Verification using SystemVerilog
 
 <p align="center">
-  <img src="sim_1/architecture.png" alt="Decoder Based RAM Verification Architecture" width="850"/>
+  <img src="sim_1/new/architecture.png" alt="Decoder Based RAM Verification Architecture" width="850"/>
 </p>
 
 # Verification Plan
