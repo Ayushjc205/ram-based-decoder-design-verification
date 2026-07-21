@@ -51,6 +51,7 @@ module ram_tb_top;
     ram_allone_test                 t13;
     ram_read_before_write_test      t14;
     ram_constrained_weighted_test   t15;
+    ram_boundary_pattern_test       t16;
 
 
 
@@ -79,6 +80,7 @@ module ram_tb_top;
         t13 = new(ramif,ramif,ramif,ramif);
         t14 = new(ramif,ramif,ramif,ramif);
         t15 = new(ramif,ramif,ramif,ramif);
+        t16 = new(ramif,ramif,ramif,ramif);
 
 
 
@@ -143,6 +145,9 @@ module ram_tb_top;
 
         $display("\n[REGRESSION] ram_constrained_weighted_test");
         t15.run();
+
+        $display("\n[REGRESSION] ram_boundary_pattern_test");
+        t116.run();
 
 
 
