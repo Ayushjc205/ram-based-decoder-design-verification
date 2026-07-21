@@ -683,4 +683,86 @@ class ram_constrained_weighted_test extends ram_base_test;
 
 endclass : ram_constrained_weighted_test
 
+//TEST 16 - CROSS CVG TEST BOUNDARY PATTERN
+class ram_boundary_pattern_test extends ram_base_test;
+
+    function new(virtual ram_if.WRITE_DRV wr_vif,
+                 virtual ram_if.READ_DRV  rd_vif,
+                 virtual ram_if.WR_MON    wr_mon_vif,
+                 virtual ram_if.RD_MON    rd_mon_vif);
+        super.new(wr_vif, rd_vif, wr_mon_vif, rd_mon_vif);
+    endfunction
+
+    virtual task body();
+
+        logic [6:0] addrs[];
+        logic [7:0] datas[];
+        logic [6:0] rd_addrs[];
+
+        // 19 patterns × 2 boundary addresses = 38 writes
+        addrs    = new[38];
+        datas    = new[38];
+        rd_addrs = new[38];
+
+        $display("\n[TEST] ===== ram_boundary_pattern_test =====");
+
+        logic [7:0] patterns[19];
+
+        // Walking Ones
+        patterns[0]  = 8'h01;
+        patterns[1]  = 8'h02;
+        patterns[2]  = 8'h04;
+        patterns[3]  = 8'h08;
+        patterns[4]  = 8'h10;
+        patterns[5]  = 8'h20;
+        patterns[6]  = 8'h40;
+        patterns[7]  = 8'h80;
+
+        // Walking Zeros
+        patterns[8]  = 8'hFE;
+        patterns[9]  = 8'hFD;
+        patterns[10] = 8'hFB;
+        patterns[11] = 8'hF7;
+        patterns[12] = 8'hEF;
+        patterns[13] = 8'hDF;
+        patterns[14] = 8'hBF;
+        patterns[15] = 8'h7F;
+
+        // Alternating
+        patterns[16] = 8'hAA;
+        patterns[17] = 8'h55;
+
+        // Others
+        patterns[18] = 8'h33;
+
+        int idx = 0;
+
+        foreach(patterns[i]) begin
+
+            // Address 0x00
+            addrs[idx]    = 7'h00;
+            datas[idx]    = patterns[i];
+            rd_addrs[idx] = 7'h00;
+            idx++;
+
+            // Address 0x7F
+            addrs[idx]    = 7'h7F;
+            datas[idx]    = patterns[i];
+            rd_addrs[idx] = 7'h7F;
+            idx++;
+
+        end
+
+        do_writes_then_reads_diff_addr(addrs,
+                                       datas,
+                                       38,
+                                       rd_addrs,
+                                       38);
+
+    endtask
+
+endclass
+
+
+
 `endif 
