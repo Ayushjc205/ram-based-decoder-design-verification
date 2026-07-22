@@ -29,7 +29,7 @@
 
 # Coverage Report
 
-<img width="1919" height="326" alt="rbd_coverage" src="https://github.com/user-attachments/assets/06a9ac4e-7985-4997-96b2-bb239652f557" />
+<img width="1919" height="626" alt="rbd_coverage" src="https://github.com/user-attachments/assets/06a9ac4e-7985-4997-96b2-bb239652f557" />
 
 
 # Repository Structure
